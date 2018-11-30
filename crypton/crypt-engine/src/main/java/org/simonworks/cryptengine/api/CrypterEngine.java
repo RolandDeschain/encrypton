@@ -1,4 +1,4 @@
-package it.oasi.crypter.engine;
+package org.simonworks.cryptengine.api;
 
 /**
  * Questo oggetto si occupa di criptare una String in un formato non reversibile

@@ -1,14 +1,14 @@
-package it.oasi.crypter.engine.sequence;
+package org.simonworks.smartsequences.api;
 
-public class CharSequence extends ProxySequence {
+public class CharsSequence extends ProxySequence {
 	
 	private static final String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
-	public CharSequence() {
+	public CharsSequence() {
 		super();
 	}
 	
-	public CharSequence(Sequence delegate) {
+	public CharsSequence(Sequence delegate) {
 		super(delegate);
 	}
 	

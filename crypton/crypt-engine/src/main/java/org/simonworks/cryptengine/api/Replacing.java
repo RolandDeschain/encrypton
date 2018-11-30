@@ -1,4 +1,4 @@
-package it.oasi.crypter.engine;
+package org.simonworks.cryptengine.api;
 
 import org.apache.commons.lang3.StringUtils;
 

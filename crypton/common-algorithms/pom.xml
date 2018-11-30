@@ -7,4 +7,11 @@
   </parent>
   <artifactId>common-algorithms</artifactId>
   <name>common-algorithms</name>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.simonworks.projects</groupId>
+  		<artifactId>crypt-algorithms</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

@@ -1,19 +1,23 @@
-package it.oasi.crypter.engine.cache;
+package org.simonworks.cacheworks.commons.fs;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.Properties;
 
-import org.apache.commons.codec.binary.Base64;
+import org.simonworks.cacheworks.api.AbstractCryptCache;
+import org.simonworks.cacheworks.api.CryptCache;
 
 public class FsCryptCache extends AbstractCryptCache implements CryptCache {
 
 	private File dataDir;
-	private Base64 base64 = new Base64();
-	
-	@Override
+
 	public boolean contains(String container, String source) {
 		
 		/**
@@ -54,18 +58,18 @@ public class FsCryptCache extends AbstractCryptCache implements CryptCache {
 	
 	private String toBase64(String toEncode) {
 		if (toEncode == null) {
-			return base64.encodeToString("".getBytes()).replace('+', '.').replace('/', '_');
+			return Base64.getEncoder().encodeToString("".getBytes()).replace('+', '.').replace('/', '_');
 		}
-		return base64.encodeToString("".getBytes()).replace('+', '.').replace('/', '_');
+		return Base64.getEncoder().encodeToString("".getBytes()).replace('+', '.').replace('/', '_');
 	}
 
 	@Override
 	public void store(String container, String source, String crypted) {
-		try {
-			File file = new File(getContainer(container), toBase64(source));
-			FileOutputStream out = new FileOutputStream(file);
+		File file = new File(getContainer(container), toBase64(source));
+		try (FileOutputStream out = new FileOutputStream(file);){
+			
 			out.write(crypted.getBytes());
-			out.close();
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -74,28 +78,21 @@ public class FsCryptCache extends AbstractCryptCache implements CryptCache {
 
 	@Override
 	public void update(String container, String source, String crypted) {
-		File file = new File(getContainer(container), toBase64(source));
-		if (file.exists()) {
-			file.delete();
+		Path path = Paths.get(this.dataDir.getPath(), container, toBase64(source));
+		try {
+			Files.delete(path);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		store(container, source, crypted);
 	}
 
 	@Override
 	public String recover(String container, String source) {
-		try {
-			File file = new File(getContainer(container), toBase64(source));
-			
-			FileInputStream in;
-			try {
-				in = new FileInputStream(file);
-			} catch (FileNotFoundException e) {
-				return null;
-			}
-			
+		File file = new File(getContainer(container), toBase64(source));
+		try (FileInputStream in = new FileInputStream(file); ) {
 			byte[] bytes = new byte[in.available()];
-			in.read(bytes);
-			in.close();
+			while( in.read(bytes) > 0 );
 			return new String(bytes);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -104,19 +101,23 @@ public class FsCryptCache extends AbstractCryptCache implements CryptCache {
 
 	@Override
 	public void clearContainer(String container) {
-		// TODO Auto-generated method stub
-
+		/**
+		 * To be implemented
+		 */
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		/**
+		 * To be implemented
+		 */
 	}
 
 	@Override
 	public void close() {
-		
-
+		/**
+		 * Nothing to do here
+		 */
 	}
 
 	@Override

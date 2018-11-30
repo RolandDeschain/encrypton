@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author user
+ * @author s.stranieri
  *
  */
-package it.oasi.crypter.engine;
+package org.simonworks.cryptengine.api;

@@ -1,4 +1,4 @@
-package it.oasi.crypter.engine.cache.algorithm;
+package org.simonworks.cryptalgorithms.commons;;
 
 public class PositionDifferenceCrypCacheAlgorithm extends AbstractCrypCacheAlgorithm {
 
@@ -25,7 +25,6 @@ public class PositionDifferenceCrypCacheAlgorithm extends AbstractCrypCacheAlgor
 
 	@Override
 	public boolean contains(String container, String source) {
-		// TODO Stub di metodo generato automaticamente
 		return false;
 	}
 

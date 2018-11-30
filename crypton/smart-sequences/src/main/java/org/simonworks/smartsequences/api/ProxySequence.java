@@ -1,4 +1,4 @@
-package it.oasi.crypter.engine.sequence;
+package org.simonworks.smartsequences.api;
 
 import java.math.BigInteger;
 
@@ -145,8 +145,9 @@ public abstract class ProxySequence implements Sequence {
 		
 		@Override
 		public void doDecrement() {
-			// TODO Stub di metodo generato automaticamente
-			
+			/**
+			 * Do nothing
+			 */
 		}
 	}
 	
@@ -164,8 +165,9 @@ public abstract class ProxySequence implements Sequence {
 		
 		@Override
 		public void doDecrement() {
-			// TODO Stub di metodo generato automaticamente
-			
+			/**
+			 * Do nothing
+			 */
 		}
 	}
 }

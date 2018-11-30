@@ -1,4 +1,4 @@
-package it.oasi.crypter.engine.algorithm;
+package org.simonworks.cryptalgorithms.api;
 
 /**
  * Crypt algorithms are used to crypt values. Each algorithm use its own behaviour to determine a result value from a input one.

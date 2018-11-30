@@ -1,10 +1,9 @@
-package it.oasi.crypter.engine.algorithm;
+package org.simonworks.cryptalgorithms.api;
 
 import org.apache.commons.lang3.StringUtils;
-
-import it.oasi.crypter.engine.cache.CryptCache;
-import it.oasi.crypter.engine.cache.CryptCacheFactory;
-import it.oasi.crypter.engine.sequence.SequenceGroup;
+import org.simonworks.cacheworks.api.CryptCache;
+import org.simonworks.cacheworks.api.CryptCacheFactory;
+import org.simonworks.smartsequences.api.SequenceGroup;
 
 public class CachedValuesSequenceBasedCryptAlgorithm extends SequenceBasedCryptAlgorithm {
 	

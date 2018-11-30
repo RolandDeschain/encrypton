@@ -1,10 +1,9 @@
-package it.oasi.crypter.engine.cache;
+package org.simonworks.cacheworks.api;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import it.oasi.crypter.engine.cache.CryptCache;
-import it.oasi.crypter.engine.util.MemoryManager;
+import org.simonworks.cacheworks.util.MemoryManager;
 
 /**
  * L'istanza di questa classe implementa una politica di cache che agisce unicamente in memory
@@ -14,7 +13,7 @@ import it.oasi.crypter.engine.util.MemoryManager;
  */
 public class InMemoryCryptCache implements CryptCache {
 	
-	private Map<String, Map<String, String>> cache = new HashMap<String, Map<String, String>>();
+	private Map<String, Map<String, String>> cache = new HashMap<>();
 	
 	public boolean contains(String container, String source) {
 		boolean result = false;		
@@ -26,11 +25,7 @@ public class InMemoryCryptCache implements CryptCache {
 	}
 
 	public void store(String container, String source, String crypted) {
-		Map<String, String> secondLevelCache = cache.get( container );
-		if( secondLevelCache == null ) {
-			secondLevelCache = new HashMap<String, String>();
-			cache.put( container, secondLevelCache );
-		}
+		Map<String, String> secondLevelCache = cache.computeIfAbsent(container, k -> cache.put( container, new HashMap<String, String>() ));
 		secondLevelCache.put( source, crypted );
 	}
 	
@@ -63,7 +58,7 @@ public class InMemoryCryptCache implements CryptCache {
 
 	@Override
 	public void init() {
-		cache = new HashMap<String, Map<String,String>>();
+		cache = new HashMap<>();
 	}
 
 	@Override

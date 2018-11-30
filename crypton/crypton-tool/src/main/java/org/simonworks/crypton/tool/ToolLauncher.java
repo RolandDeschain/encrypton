@@ -1,9 +1,4 @@
-package it.oasi.crypter;
-
-import it.oasi.crypter.engine.CrypterEngine;
-import it.oasi.crypter.engine.CrypterEngineFactory;
-import it.oasi.crypter.engine.cache.CryptCache;
-import it.oasi.crypter.engine.cache.CryptCacheFactory;
+package org.simonworks.crypton.tool;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +12,10 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.StringUtils;
+import org.simonworks.cacheworks.api.CryptCache;
+import org.simonworks.cacheworks.api.CryptCacheFactory;
+import org.simonworks.cryptengine.api.CrypterEngine;
+import org.simonworks.cryptengine.api.CrypterEngineFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,76 +48,50 @@ public class ToolLauncher {
 		CommandLine line = null;
 		try {
 			line = defaultParser.parse(options, args);
-
-			for (Option currentOption : options.getOptions()) {
-				if (line.hasOption("h")) {
-					printHelp(options, CRYPT_TOOL);
-				}
-
-				if (currentOption.isRequired() && StringUtils.isEmpty(line.getOptionValue(currentOption.getOpt()))) {
-					LOGGER.info(String.format("Parametro obbligatorio [%s] non fornito", currentOption.getOpt()));
-					printHelp(options, CRYPT_TOOL);
-				}
-
-				fileModeOption = line.getOptionValue("e");
-
-				if (!CrypterEngineFactory.INSTANCE.listEngines().contains(fileModeOption)) {
-					LOGGER.info(String.format("Engine [%s] non valido ", fileModeOption));
-					printHelp(options, CRYPT_TOOL);
-				}
-
-				cacheType = line.getOptionValue("c");
-
-				if (!CryptCacheFactory.INSTANCE.listCaches().contains(cacheType)) {
-					LOGGER.info(String.format("Cache [%s] non valida ", cacheType));
-					printHelp(options, CRYPT_TOOL);
-				}
-
-				inputFile = line.getOptionValue("if");
-
-				if (!new File(inputFile).exists()) {
-					LOGGER.info(String.format("File [%s] non esistente ", inputFile));
-					printHelp(options, CRYPT_TOOL);
-				}
-
-				if (line.hasOption("of")) {
-					outputFile = line.getOptionValue("of");
-				} else {
-					outputFile = inputFile + ".crypt";
-				}
-				
-				if (line.hasOption("ci")) {
-					String ci = line.getOptionValue("ci");
-					try {
-						commitInterval = Integer.parseInt(ci);
-					} catch(Exception e) {
-						LOGGER.error("Malformed ci (commit interval) value <{}>. Default value <{}> will be used", ci, commitInterval);
-					}
-				}
-
+			
+			if (line.hasOption("h")) {
+				printHelp(options, CRYPT_TOOL);
 			}
+			
+			chechRequireds(options, line);
 
 		} catch (ParseException e) {
 			LOGGER.error(e.getMessage(),e);
 			printHelp(options, CRYPT_TOOL);
 		}
 		
-		LOGGER.info("Commit interval is <{}>", commitInterval);
+		fileModeOption = readFileModeOption(options, line);
 
-		LOGGER.info(String.format("Esecuzione con i parametri %s", Arrays.toString(args)));
+		cacheType = readCacheType(options, line);
 
+		inputFile = readInputFile(options, line);
+
+		outputFile = readOutputFile(inputFile, line);
+		
+		commitInterval = readCommitInterval(commitInterval, line);
+		
+		if(LOGGER.isInfoEnabled()) {
+			LOGGER.info("Commit interval is <{}>", commitInterval);
+			LOGGER.info( "Esecuzione con i parametri {}", Arrays.toString(args) );
+		}
 		boolean useCache = !line.hasOption("dc");
 		boolean useFirstLevelCache = false;
 		if(!useCache) {
 			LOGGER.warn("Cache disabilitata");
 			cacheType = CryptCacheFactory.NOOP_CACHE;
 		} else {
-			LOGGER.info("Cache attivata <{}>", cacheType);
+			if(LOGGER.isInfoEnabled()) {
+				LOGGER.info("Cache attivata <{}>", cacheType);
+			}
 			if(line.hasOption("flc")) {
-				LOGGER.info("Cache di primo livello in memory attivata");
+				if(LOGGER.isInfoEnabled()) {
+					LOGGER.info("Cache di primo livello in memory attivata");
+				}
 				useFirstLevelCache = true;
 			} else {
-				LOGGER.info("Cache di primo livello in memory disabilitata");
+				if(LOGGER.isInfoEnabled()) {
+					LOGGER.info("Cache di primo livello in memory disabilitata");
+				}
 			}
 		}
 		
@@ -160,22 +133,83 @@ public class ToolLauncher {
 		} catch(Exception e) {
 			LOGGER.error("Cannot process file! ", e);
 		} finally {
-			if (cryptCache != null) {
-				crypterEngine.storeSequencesStatus();
-				cryptCache.close();
-			}
+			crypterEngine.storeSequencesStatus();
+			cryptCache.close();
 		}
 	}
 
-	private static void doFile(String fileName, String outputFile, int commitInterval, CrypterEngine crypterEngine) throws Exception {
-		FileCrypter fileCrypter = new FileCrypter(crypterEngine, new File(fileName), new File(outputFile), commitInterval);
-		try {
-			start = System.currentTimeMillis();
-			fileCrypter.start();
-			LOGGER.info("File "+fileName+" Executed in  " + elapsedTimeSinceStart() + " seconds");
-		} catch (IOException e) {
-			LOGGER.error("Errore duante il processo", e);
+	private static void chechRequireds(Options options, CommandLine line) {
+		for (Option currentOption : options.getOptions()) {
+			
+
+			if (currentOption.isRequired() && StringUtils.isEmpty(line.getOptionValue(currentOption.getOpt()))) {
+				LOGGER.info( "Parametro obbligatorio [{}] non fornito", currentOption.getOpt() );
+				printHelp(options, CRYPT_TOOL);
+			}
+
 		}
+	}
+
+	private static String readFileModeOption(Options options, CommandLine line) {
+		String fileModeOption;
+		fileModeOption = line.getOptionValue("e");
+
+		if (!CrypterEngineFactory.INSTANCE.listEngines().contains(fileModeOption)) {
+			LOGGER.info( "Engine [{}] non valido ", fileModeOption );
+			printHelp(options, CRYPT_TOOL);
+		}
+		return fileModeOption;
+	}
+
+	private static String readCacheType(Options options, CommandLine line) {
+		String cacheType;
+		cacheType = line.getOptionValue("c");
+
+		if (!CryptCacheFactory.INSTANCE.listCaches().contains(cacheType)) {
+			LOGGER.info( "Cache [{}] non valida ", cacheType );
+			printHelp(options, CRYPT_TOOL);
+		}
+		return cacheType;
+	}
+
+	private static String readInputFile(Options options, CommandLine line) {
+		String inputFile;
+		inputFile = line.getOptionValue("if");
+
+		if (!new File(inputFile).exists()) {
+			LOGGER.info( "File [{}] non esistente ", inputFile );
+			printHelp(options, CRYPT_TOOL);
+		}
+		return inputFile;
+	}
+
+	private static String readOutputFile(String inputFile, CommandLine line) {
+		String outputFile;
+		if (line.hasOption("of")) {
+			outputFile = line.getOptionValue("of");
+		} else {
+			outputFile = inputFile + ".crypt";
+		}
+		return outputFile;
+	}
+
+	private static int readCommitInterval(int commitInterval, CommandLine line) {
+		if (line.hasOption("ci")) {
+			String ci = line.getOptionValue("ci");
+			try {
+				commitInterval = Integer.parseInt(ci);
+			} catch(Exception e) {
+				LOGGER.error("Malformed ci (commit interval) value <{}>. Default value <{}> will be used", ci, commitInterval);
+			}
+		}
+		return commitInterval;
+	}
+
+	private static void doFile(String fileName, String outputFile, int commitInterval, CrypterEngine crypterEngine) throws IOException {
+		FileCrypter fileCrypter = new FileCrypter(crypterEngine, new File(fileName), new File(outputFile), commitInterval);
+		start = System.currentTimeMillis();
+		fileCrypter.start();
+		LOGGER.info("File {} Executed in  {} seconds", fileName,elapsedTimeSinceStart());
 	}
 
 	protected static void printHelp(Options options, String command) {

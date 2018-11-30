@@ -1,14 +1,12 @@
-package it.oasi.crypter.engine.sequence;
+package org.simonworks.smartsequences.api;
 
-public abstract class SequenceGroup {
+public interface SequenceGroup {
 	
+	int getReferencedValueLength();
 	
+	Sequence getEngine();
 	
-	public abstract int getReferencedValueLength();
-	
-	public abstract Sequence getEngine();
-	
-	public String next() {
+	default String next() {
 			StringBuilder result = this.getEngine().get();
 			this.getEngine().increment();
 			return result.toString();

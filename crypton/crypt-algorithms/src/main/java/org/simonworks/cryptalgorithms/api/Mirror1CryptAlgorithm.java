@@ -1,7 +1,7 @@
-package it.oasi.crypter.engine.algorithm;
+package org.simonworks.cryptalgorithms.api;
 
-import it.oasi.crypter.engine.sequence.Sequence;
-import it.oasi.crypter.engine.sequence.SequenceGroup;
+import org.simonworks.smartsequences.api.Sequence;
+import org.simonworks.smartsequences.api.SequenceGroup;
 
 /**
  * 

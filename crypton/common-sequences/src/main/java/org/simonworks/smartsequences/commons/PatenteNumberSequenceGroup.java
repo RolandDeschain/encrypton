@@ -1,11 +1,11 @@
-package it.oasi.crypter.engine.sequence;
+package org.simonworks.smartsequences.commons;
 
-import it.oasi.crypter.engine.sequence.CharSequence;
-import it.oasi.crypter.engine.sequence.NumberSequence;
-import it.oasi.crypter.engine.sequence.Sequence;
-import it.oasi.crypter.engine.sequence.SequenceGroup;
+import org.simonworks.smartsequences.api.CharsSequence;
+import org.simonworks.smartsequences.api.NumbersSequence;
+import org.simonworks.smartsequences.api.Sequence;
+import org.simonworks.smartsequences.api.SequenceGroup;
 
-public class PatenteNumberSequenceGroup extends SequenceGroup {
+public class PatenteNumberSequenceGroup implements SequenceGroup {
 	
 	private Sequence engine;
 	private static final int REFERENCED_VALUE_LENGTH = 10;
@@ -17,16 +17,16 @@ public class PatenteNumberSequenceGroup extends SequenceGroup {
 
 	public PatenteNumberSequenceGroup() {
 		super();
-		Sequence a = new CharSequence();
-		Sequence b = new CharSequence( a );
-		Sequence c = new NumberSequence( b );
-		Sequence d = new NumberSequence( c );
-		Sequence e = new NumberSequence( d );
-		Sequence f = new NumberSequence( e );
-		Sequence g = new NumberSequence( f );
-		Sequence h = new NumberSequence( g );
-		Sequence i = new NumberSequence( h );
-		engine = new NumberSequence( i );
+		Sequence a = new CharsSequence();
+		Sequence b = new CharsSequence( a );
+		Sequence c = new NumbersSequence( b );
+		Sequence d = new NumbersSequence( c );
+		Sequence e = new NumbersSequence( d );
+		Sequence f = new NumbersSequence( e );
+		Sequence g = new NumbersSequence( f );
+		Sequence h = new NumbersSequence( g );
+		Sequence i = new NumbersSequence( h );
+		engine = new NumbersSequence( i );
 	}
 
 	@Override

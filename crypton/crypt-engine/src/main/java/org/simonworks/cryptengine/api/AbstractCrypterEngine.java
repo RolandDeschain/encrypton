@@ -1,16 +1,17 @@
-package it.oasi.crypter.engine;
-
-import it.oasi.crypter.engine.cache.CryptCache;
-import it.oasi.crypter.engine.cache.CryptCacheFactory;
-import it.oasi.crypter.engine.sequence.SequenceGroup;
+package org.simonworks.cryptengine.api;
 
 import org.apache.commons.lang3.StringUtils;
+import org.simonworks.cacheworks.api.CryptCache;
+import org.simonworks.cacheworks.api.CryptCacheFactory;
+import org.simonworks.smartsequences.api.SequenceGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class AbstractCrypterEngine implements CrypterEngine {
 	
 	public static final String SEQUENCES_VALUES = "SEQUENCES_VALUES";
+	
+	private Object mutex = new Object();
 
 	private CryptCache cryptCache;
 	private static final Logger LOG = LoggerFactory.getLogger(CrypterEngine.class);
@@ -62,7 +63,7 @@ public abstract class AbstractCrypterEngine implements CrypterEngine {
 	}
 
 	protected void setNewValue(SequenceGroup sequence, Replacing replacing) {
-		synchronized (sequence) {
+		synchronized ( mutex ) {
 			String recovered = this.recover(replacing);
 			if (recovered != null) {
 				replacing.setNewValue(recovered);

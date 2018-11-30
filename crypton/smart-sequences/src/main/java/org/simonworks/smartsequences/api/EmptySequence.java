@@ -1,4 +1,4 @@
-package org.simonworks.smartsequences.sequence;
+package org.simonworks.smartsequences.api;
 
 import java.math.BigInteger;
 
@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 class EmptySequence implements Sequence {
 	
+	private static final String SEQUENCE_END = "Sequence exausted! All valued assigned";
 	private static final EmptySequence myself = new EmptySequence();
 	
 	private EmptySequence() {}
@@ -30,25 +31,27 @@ class EmptySequence implements Sequence {
 	
 	@Override
 	public void decrement() {
-		throw new SequenceException( "Sequence exausted! All valued assigned" );
+		throw new SequenceException( SEQUENCE_END );
 	}
 	
 	@Override
 	public void decrement(long amount) {
-		throw new SequenceException( "Sequence exausted! All valued assigned" );
+		throw new SequenceException( SEQUENCE_END );
 	}
 
 	public void increment() {
-		throw new SequenceException( "Sequence exausted! All valued assigned" );
+		throw new SequenceException( SEQUENCE_END );
 	}
 	
 	public void increment(long amount) {
-		throw new SequenceException( "Sequence exausted! All valued assigned" );
+		throw new SequenceException( SEQUENCE_END );
 	}
 	
 	@Override
 	public void synchWithValue(String value) {
-//		throw new RuntimeException( "Sequence exausted! All valued assigned" );
+		/**
+		 * Nothing to do here :-)
+		 */
 	}
 	
 	@Override

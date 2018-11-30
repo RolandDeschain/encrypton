@@ -1,9 +1,13 @@
-package it.oasi.crypter.engine.sequence;
+package org.simonworks.smartsequences.commons;
 
+import org.simonworks.smartsequences.api.CharsSequence;
+import org.simonworks.smartsequences.api.NumbersSequence;
+import org.simonworks.smartsequences.api.Sequence;
+import org.simonworks.smartsequences.api.SequenceGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class CodiceFiscaleSequenceGroup extends SequenceGroup {
+public final class CodiceFiscaleSequenceGroup implements SequenceGroup {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CodiceFiscaleSequenceGroup.class);
 	
@@ -17,22 +21,22 @@ public final class CodiceFiscaleSequenceGroup extends SequenceGroup {
 
 	public CodiceFiscaleSequenceGroup() {		
 		super();
-		Sequence a = new CharSequence();
-		Sequence b = new CharSequence(		a	);
-		Sequence c = new CharSequence(		b	);
-		Sequence d = new CharSequence(		c	);
-		Sequence e = new CharSequence(		d	);
-		Sequence f = new CharSequence(		e	);
-		Sequence g = new NumberSequence(	f	);
-		Sequence h = new NumberSequence(	g	);
-		Sequence i = new CharSequence(		h	);
-		Sequence j = new NumberSequence(	i	);
-		Sequence k = new NumberSequence(	j	);
-		Sequence l = new CharSequence(		k	);
-		Sequence m = new NumberSequence(	l	);
-		Sequence n = new NumberSequence(	m	);
-		Sequence o = new NumberSequence(	n	);
-		engine = new CharSequence(			o	);
+		Sequence a = new CharsSequence();
+		Sequence b = new CharsSequence(		a	);
+		Sequence c = new CharsSequence(		b	);
+		Sequence d = new CharsSequence(		c	);
+		Sequence e = new CharsSequence(		d	);
+		Sequence f = new CharsSequence(		e	);
+		Sequence g = new NumbersSequence(	f	);
+		Sequence h = new NumbersSequence(	g	);
+		Sequence i = new CharsSequence(		h	);
+		Sequence j = new NumbersSequence(	i	);
+		Sequence k = new NumbersSequence(	j	);
+		Sequence l = new CharsSequence(		k	);
+		Sequence m = new NumbersSequence(	l	);
+		Sequence n = new NumbersSequence(	m	);
+		Sequence o = new NumbersSequence(	n	);
+		engine = new CharsSequence(			o	);
 	}
 	
 	@Override

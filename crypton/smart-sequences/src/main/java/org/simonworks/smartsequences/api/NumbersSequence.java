@@ -1,14 +1,14 @@
-package it.oasi.crypter.engine.sequence;
+package org.simonworks.smartsequences.api;
 
-public class NumberSequence extends ProxySequence {
+public class NumbersSequence extends ProxySequence {
 	
 	private static final String NUMBERS = "0123456789";
 	
-	public NumberSequence() {
+	public NumbersSequence() {
 		super();
 	}
 	
-	public NumberSequence(Sequence delegate) {
+	public NumbersSequence(Sequence delegate) {
 		super(delegate);
 	}
 	

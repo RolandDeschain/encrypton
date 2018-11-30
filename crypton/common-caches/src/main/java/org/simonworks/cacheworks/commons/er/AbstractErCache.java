@@ -1,4 +1,4 @@
-package org.simonworks.smartsequences.commons.er;
+package org.simonworks.cacheworks.commons.er;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,11 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.simonworks.cacheworks.api.AbstractCryptCache;
+import org.simonworks.cacheworks.api.CryptCache;
+import org.simonworks.cacheworks.commons.er.h2.ErCryptCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class AbstractErCache extends AbstractCryptCache implements CryptCache {
 	
+	private static final String CANNOT_EXEC_QUERY = "Cannot executes queries";
+
 	private static final String CREATE_TABLE_QUERY = "CREATE TABLE CACHE_TABLE ( CONTAINER_COL VARCHAR(20) , SOURCE_COL VARCHAR(70) , CRYPTED_COL VARCHAR(70) , PRIMARY KEY (SOURCE_COL, CONTAINER_COL)  );";
 
 	private static final String CREATION_OF_TABLE_CACHE_TABLE_MESSAGE = "Creation of table CACHE_TABLE";
@@ -40,7 +45,7 @@ public abstract class AbstractErCache extends AbstractCryptCache implements Cryp
 			ps.setString(3, crypted);
 			ps.executeUpdate();			
 		} catch (Exception e) {
-			throw new IllegalStateException("Cannot executes queries", e);
+			throw new IllegalStateException(CANNOT_EXEC_QUERY, e);
 		} finally {
 			if (resultSet != null) {
 				try {
@@ -81,7 +86,7 @@ public abstract class AbstractErCache extends AbstractCryptCache implements Cryp
 				LOGGER.error("Update di piu' campi");
 			}
 		} catch (Exception e) {
-			throw new IllegalStateException("Cannot executes queries", e);
+			throw new IllegalStateException(CANNOT_EXEC_QUERY, e);
 		} finally {
 			if (resultSet != null) {
 				try {
@@ -117,7 +122,7 @@ public abstract class AbstractErCache extends AbstractCryptCache implements Cryp
 				return resultSet.getString("CRYPTED_COL");
 			}
 		} catch (Exception e) {
-			throw new IllegalStateException("Cannot executes queries", e);
+			throw new IllegalStateException(CANNOT_EXEC_QUERY, e);
 		} finally {
 			if (resultSet != null) {
 				try {
@@ -148,7 +153,7 @@ public abstract class AbstractErCache extends AbstractCryptCache implements Cryp
 			ps.setString(1, container);
 			ps.executeUpdate();
 		} catch (Exception e) {
-			throw new IllegalStateException("Cannot executes queries", e);
+			throw new IllegalStateException(CANNOT_EXEC_QUERY, e);
 		} finally {
 			if (ps != null) {
 				try {

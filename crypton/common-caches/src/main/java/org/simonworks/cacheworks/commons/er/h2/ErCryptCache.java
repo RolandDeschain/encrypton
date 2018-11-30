@@ -1,11 +1,12 @@
-package org.simonworks.smartsequences.commons.er.h2;
+package org.simonworks.cacheworks.commons.er.h2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.simonworks.smartsequences.commons.er.AbstractErCache;
+import org.simonworks.cacheworks.api.CryptCache;
+import org.simonworks.cacheworks.commons.er.AbstractErCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +79,6 @@ public class ErCryptCache extends AbstractErCache implements CryptCache {
 
 	@Override
 	public boolean contains(String container, String source) {
-		// TODO Stub di metodo generato automaticamente
 		return false;
 	}
 

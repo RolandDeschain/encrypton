@@ -1,8 +1,8 @@
-package it.oasi.crypter.engine.sequence;
+package org.simonworks.smartsequences.api;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class CharSequencesGroup extends SequenceGroup {
+public class CharSequencesGroup implements SequenceGroup {
 	
 	private Sequence engine;
 	private int generatedValuesLength;
@@ -14,15 +14,15 @@ public class CharSequencesGroup extends SequenceGroup {
 
 	public CharSequencesGroup(int nDelegates, int generatedValuesLength) {
 		this.generatedValuesLength = generatedValuesLength;
-		engine = new CharSequence( EmptySequence.getInstance() );
+		engine = new CharsSequence( EmptySequence.getInstance() );
 		for( int i = 0; i < nDelegates-1; i++ ) {
-			engine = new CharSequence( engine );
+			engine = new CharsSequence( engine );
 		}
 	}
 	
 	@Override
 	public String next() {
-		String next = super.next();
+		String next = SequenceGroup.super.next();
 		return StringUtils.rightPad(
 				next, 
 				this.generatedValuesLength, 

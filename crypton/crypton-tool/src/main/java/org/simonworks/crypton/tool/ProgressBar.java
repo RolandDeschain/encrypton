@@ -1,9 +1,7 @@
-package it.oasi.crypter;
+package org.simonworks.crypton.tool;
 
 /**
  * Una classe astratta che implementa una progress bar
- * 
- * @author g.maestro
  *
  */
 public abstract class ProgressBar {

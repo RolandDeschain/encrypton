@@ -1,4 +1,4 @@
-package it.oasi.crypter.engine.cache;
+package org.simonworks.cacheworks.commons.mongo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,8 @@ import java.util.Map;
 import org.bson.Document;
 import org.bson.json.JsonMode;
 import org.bson.json.JsonWriterSettings;
+import org.simonworks.cacheworks.api.AbstractCryptCache;
+import org.simonworks.cacheworks.api.CryptCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,23 +36,21 @@ import com.mongodb.client.model.UpdateOptions;
  * </ul>
  * 
  * @author simone.stranieri
- * @author g.maestro
  *
  */
 public class MongoDBCryptCacheImpl extends AbstractCryptCache implements CryptCache {
 
 	
 	
+	private static final String VALUE = "value";
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(CryptCache.class);
 
 	private MongoClient client;
 	private MongoDatabase database;
-	private Map<String, MongoCollection<Document>> cryptCachePool = new HashMap<String, MongoCollection<Document>>();
+	private Map<String, MongoCollection<Document>> cryptCachePool = new HashMap<>();
 
 	private static final UpdateOptions updateOptions = new UpdateOptions().upsert(true);
-
-	public MongoDBCryptCacheImpl() {
-	}
 
 	@Override
 	public boolean contains(String container, String source) {
@@ -63,7 +63,7 @@ public class MongoDBCryptCacheImpl extends AbstractCryptCache implements CryptCa
 		Document first = doFind(container, source);
 		String result = null;
 		if (first != null) {
-			result = first.getString("value");
+			result = first.getString(VALUE);
 			if (LOGGER.isTraceEnabled()) {
 				LOGGER.trace("recover({},{})=<{}>", container, source, result);
 			}	
@@ -72,11 +72,10 @@ public class MongoDBCryptCacheImpl extends AbstractCryptCache implements CryptCa
 	}
 
 	private Document doFind(String container, String source) {
-		Document _id = new Document("_id", source);
+		Document id = new Document("_id", source);
 		MongoCollection<Document> collection = lookupCollection(container);
-		FindIterable<Document> find = collection.find(_id);
-		Document first = find.first();
-		return first;
+		FindIterable<Document> find = collection.find(id);
+		return find.first();
 	}
 
 	@Override
@@ -91,17 +90,20 @@ public class MongoDBCryptCacheImpl extends AbstractCryptCache implements CryptCa
 	@Override
 	public void update(String container, String source, String value) {
 		Document query = new Document("_id", source);
-		Document update = new Document("$set", new Document("value", value));
+		Document update = new Document("$set", new Document(VALUE, value));
 		if (LOGGER.isInfoEnabled()) {
 			LOGGER.info("update({},{},{})", container, source, value);
-			LOGGER.info("fire upsert, query <{}>, update <{}>", query.toJson(new JsonWriterSettings(JsonMode.SHELL)), update.toJson(new JsonWriterSettings(JsonMode.SHELL)));
+			JsonWriterSettings jws = JsonWriterSettings.builder().outputMode(JsonMode.SHELL).build();
+			LOGGER.info("fire upsert, query <{}>, update <{}>", 
+					query.toJson(jws), 
+					update.toJson(jws));
 		}
 		lookupCollection(container).updateOne(query, update, updateOptions);
 	}
 
 	@Override
 	public void clearContainer(String container) {
-		LOGGER.warn("Clearing (dropping) collection <{}>");
+		LOGGER.warn("Clearing (dropping) collection <{}>", container);
 		lookupCollection(container).drop();
 	}
 
@@ -131,7 +133,7 @@ public class MongoDBCryptCacheImpl extends AbstractCryptCache implements CryptCa
 	}
 
 	public Document createDocumentToStore(String arg0, String arg1) {
-		return new Document("_id", arg0).append("value", arg1);
+		return new Document("_id", arg0).append(VALUE, arg1);
 	}
 
 	@Override

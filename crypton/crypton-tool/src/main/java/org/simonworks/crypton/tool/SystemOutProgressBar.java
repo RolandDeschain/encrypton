@@ -1,10 +1,9 @@
-package it.oasi.crypter;
-
-import it.oasi.crypter.engine.util.MemoryManager;
+package org.simonworks.crypton.tool;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import org.simonworks.cacheworks.util.MemoryManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +49,10 @@ public class SystemOutProgressBar extends ProgressBar {
 		String processedLines = String.format("%1$12s", format.format(processedLine)) ;
 		String lastprocessedLines = String.format("%1$12s", format.format(newProcessedLine)) ;
 		String progressBar = progressBar(lineNumber, processedLine, 20);
-		LOGGER.info(progressBar + "Written lines " + processedLines + ", throughput <since begin " + thoughput + " l/sec> <last "+ lastprocessedLines + " l "+throputLastLinesString+" l/sec>, <mem " + format.format(MemoryManager.usedMemory()) + "%>" );
+		if(LOGGER.isInfoEnabled()) {
+			LOGGER.info("{}Written lines {}, throughput <since begin {} l/sec> <last {} l {} l/sec>, <mem {}%>",
+				progressBar,processedLines, thoughput, lastprocessedLines, throputLastLinesString, format.format(MemoryManager.usedMemory()));
+		}
 	}
 	
 	/**

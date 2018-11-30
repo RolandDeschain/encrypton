@@ -1,4 +1,4 @@
-package it.oasi.crypter.engine.algorithm;
+package org.simonworks.cryptalgorithms.api;
 
 import java.util.Collection;
 

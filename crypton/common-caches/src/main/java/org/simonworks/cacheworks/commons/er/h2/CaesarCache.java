@@ -1,9 +1,9 @@
-package org.simonworks.smartsequences.commons.er.h2;
+package org.simonworks.cacheworks.commons.er.h2;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import it.oasi.crypter.engine.AbstractCrypterEngine;
+import org.simonworks.cacheworks.api.CryptCache;
 
 public class CaesarCache implements CryptCache {
 
@@ -77,7 +77,7 @@ public class CaesarCache implements CryptCache {
 	@Override
 	public String recover(String container, String source) {	
 		
-		if (AbstractCrypterEngine.SEQUENCES_VALUES.equals(container)) {
+		if ("SEQUENCES_VALUES".equals(container)) {
 			return "";
 		}
 		
@@ -112,19 +112,18 @@ public class CaesarCache implements CryptCache {
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-		
+		/**
+		 * Nothing to do here :-)
+		 */
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean contains(String container, String source) {
-		// TODO Stub di metodo generato automaticamente
 		return false;
 	}
 

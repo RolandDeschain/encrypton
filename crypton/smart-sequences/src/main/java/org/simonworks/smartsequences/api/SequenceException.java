@@ -1,4 +1,4 @@
-package it.oasi.crypter.engine.sequence;
+package org.simonworks.smartsequences.api;
 
 public class SequenceException extends RuntimeException {
 
@@ -9,28 +9,23 @@ public class SequenceException extends RuntimeException {
 
 	public SequenceException() {
 		super();
-		// TODO Stub di costruttore generato automaticamente
 	}
 
 	public SequenceException(String message, Throwable cause,
 			boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Stub di costruttore generato automaticamente
 	}
 
 	public SequenceException(String message, Throwable cause) {
 		super(message, cause);
-		// TODO Stub di costruttore generato automaticamente
 	}
 
 	public SequenceException(String message) {
 		super(message);
-		// TODO Stub di costruttore generato automaticamente
 	}
 
 	public SequenceException(Throwable cause) {
 		super(cause);
-		// TODO Stub di costruttore generato automaticamente
 	}
 
 	

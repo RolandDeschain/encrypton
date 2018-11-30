@@ -1,7 +1,6 @@
-package it.oasi.crypter.engine.algorithm;
+package org.simonworks.cryptalgorithms.api;
 
-import it.oasi.crypter.engine.sequence.SequenceGroup;
-
+import org.simonworks.smartsequences.api.SequenceGroup;
 
 /**
  * As its name says, a {@link SequenceBasedCryptAlgorithm} is based on a sequence to get crypted version of a input value.

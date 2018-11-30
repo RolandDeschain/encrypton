@@ -1,6 +1,6 @@
-package it.oasi.crypter.engine.cache.algorithm;
+package org.simonworks.cryptalgorithms.commons;
 
-import it.oasi.crypter.engine.cache.AbstractCryptCache;
+import org.simonworks.cacheworks.api.AbstractCryptCache;
 
 public abstract class AbstractCrypCacheAlgorithm extends AbstractCryptCache {
 	

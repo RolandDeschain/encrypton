@@ -1,4 +1,4 @@
-package it.oasi.crypter.engine;
+package org.simonworks.cryptengine.api;
 
 
 class NoopCrypterEngine implements CrypterEngine {

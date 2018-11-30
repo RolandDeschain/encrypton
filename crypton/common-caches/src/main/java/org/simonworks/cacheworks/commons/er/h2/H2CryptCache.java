@@ -1,4 +1,4 @@
-package org.simonworks.smartsequences.commons.er.h2;
+package org.simonworks.cacheworks.commons.er.h2;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -7,13 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.simonworks.smartsequences.commons.er.AbstractErCache;
+import org.simonworks.cacheworks.commons.er.AbstractErCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Properties;
 
 public class H2CryptCache extends AbstractErCache {
 
@@ -47,7 +46,7 @@ public class H2CryptCache extends AbstractErCache {
 			try {
 				entry.getValue().close();
 			} catch (SQLException e) {
-				LOGGER.error("Cannot close connection for " + entry.getKey());
+				LOGGER.error("Cannot close connection for {}", entry.getKey());
 			}
 		}
 	}
@@ -65,7 +64,7 @@ public class H2CryptCache extends AbstractErCache {
 		if (!"SEQUENCES_VALUES".equals(container) && Boolean.parseBoolean(multicontainer)) {
 
 			String firstCharacter = Character.toString(source.toCharArray()[ source.length()-1 ]).toUpperCase();
-			firstCharacter = source == null || source.trim().isEmpty() ? StringUtils.EMPTY : firstCharacter;
+			firstCharacter = StringUtils.isBlank( source ) ? StringUtils.EMPTY : firstCharacter;
 
 			firstCharacter = !chars.contains(firstCharacter) ? "_MISC" : "_" + firstCharacter;
 
@@ -93,7 +92,6 @@ public class H2CryptCache extends AbstractErCache {
 
 	@Override
 	public boolean contains(String container, String source) {
-		// TODO Stub di metodo generato automaticamente
 		return false;
 	}
 

@@ -1,4 +1,4 @@
-package it.oasi.crypter.engine.cache;
+package org.simonworks.cacheworks.api;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -23,7 +23,7 @@ public enum CryptCacheFactory {
 	private Object mutex = new Object();
 	
 	private CryptCacheFactory() {
-		cachesPool = new HashMap<String, CryptCache>();
+		cachesPool = new HashMap<>();
 		cachesPool.put( NOOP_CACHE, new NoopCryptCache() );
 		
 		caches = new Properties();
@@ -55,19 +55,13 @@ public enum CryptCacheFactory {
 					} else {
 						cachesPool.put(cacheId, result);
 					}
-				} catch (NoSuchMethodException e) {
-					throw new IllegalArgumentException( String.format("Can't instantiate class %s", className), e );
-				} catch (SecurityException e) {
-					throw new IllegalArgumentException( String.format("Can't instantiate class %s", className), e );
-				} catch (ClassNotFoundException e) {
-					throw new IllegalArgumentException( String.format("Can't instantiate class %s", className), e );
-				} catch (InstantiationException e) {
-					throw new IllegalArgumentException( String.format("Can't instantiate class %s", className), e );
-				} catch (IllegalAccessException e) {
-					throw new IllegalArgumentException( String.format("Can't instantiate class %s", className), e );
-				} catch (IllegalArgumentException e) {
-					throw new IllegalArgumentException( String.format("Can't instantiate class %s", className), e );
-				} catch (InvocationTargetException e) {
+				} catch (	NoSuchMethodException 	|
+							SecurityException 		| 
+							ClassNotFoundException  |
+							InstantiationException  |
+							IllegalAccessException 	|
+							IllegalArgumentException|
+							InvocationTargetException e) {
 					throw new IllegalArgumentException( String.format("Can't instantiate class %s", className), e );
 				}
 			}

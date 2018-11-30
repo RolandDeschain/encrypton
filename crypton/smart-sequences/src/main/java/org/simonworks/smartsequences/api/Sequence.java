@@ -1,4 +1,4 @@
-package org.simonworks.smartsequences.sequence;
+package org.simonworks.smartsequences.api;
 
 import java.math.BigInteger;
 

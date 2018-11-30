@@ -1,6 +1,6 @@
-package it.oasi.crypter.engine.sequence;
+package org.simonworks.smartsequences.api;
 
-public class NumberSequencesGroup extends SequenceGroup {
+public class NumberSequencesGroup implements SequenceGroup {
 	
 	private Sequence engine;
 	private int nDelegates;
@@ -12,9 +12,9 @@ public class NumberSequencesGroup extends SequenceGroup {
 
 	public NumberSequencesGroup(int nDelegates) {
 		this.nDelegates = nDelegates;
-		engine = new NumberSequence( EmptySequence.getInstance() );
+		engine = new NumbersSequence( EmptySequence.getInstance() );
 		for( int i = 0; i < nDelegates-1; i++ ) {
-			engine = new NumberSequence( engine );
+			engine = new NumbersSequence( engine );
 		}
 	}
 

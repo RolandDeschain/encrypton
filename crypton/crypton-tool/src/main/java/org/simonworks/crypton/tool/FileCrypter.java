@@ -1,6 +1,4 @@
-package it.oasi.crypter;
-
-import it.oasi.crypter.engine.CrypterEngine;
+package org.simonworks.crypton.tool;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,6 +16,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
 
 import org.apache.commons.lang3.StringUtils;
+import org.simonworks.cryptengine.api.CrypterEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +30,6 @@ public class FileCrypter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileCrypter.class);
 
 	private int processedLines = 0;
-	private int lineNumber = Integer.MAX_VALUE;
 	private CrypterEngine crypterEngine;
 	private File fileName;
 	private File outputFile;
@@ -63,47 +61,42 @@ public class FileCrypter {
 	}
 
 	public void start() throws IOException {
+		int lineNumber = Integer.MAX_VALUE;
 
 		LOGGER.info(this.crypterEngine.getDescription());
 
 		this.crypterEngine.loadSequencesStatus();
 
-		try {
-			File input = this.fileName;
+		try (
+				FileReader fileReader = new FileReader( this.fileName );
+				BufferedReader reader = new BufferedReader(fileReader);
+				
+				FileWriter out = new FileWriter( this.outputFile );
+				BufferedWriter writer = new BufferedWriter(out);
+				) {
 
 			try {
 				LOGGER.info("Reading line numbers...");
-				lineNumber = getLineNumber(input);
+				lineNumber = getLineNumber( this.fileName );
 			} catch (Exception e) {
 				LOGGER.error("Cannot get line number. Using default one {}", Integer.MAX_VALUE, e);
 				lineNumber = Integer.MAX_VALUE;
 			}
 			
 			LOGGER.info("Lines to be read <{}>", lineNumber);
-			
-			LOGGER.info("Input file " + input.getAbsolutePath());
-
-			FileReader fileReader = new FileReader(input);
-			BufferedReader reader = new BufferedReader(fileReader);
-
-			File output = outputFile;
-			LOGGER.info("Output file " + output.getAbsolutePath());
-
-			FileWriter out = new FileWriter(output);
-			BufferedWriter writer = new BufferedWriter(out);
-
-			// new PrintWriter(output, "UTF-8");
+			LOGGER.info("Input file {}", this.fileName.getAbsolutePath());
+			LOGGER.info("Output file {}", this.outputFile.getAbsolutePath());
 
 			Runtime runtime = Runtime.getRuntime();
 			long maxMemory = runtime.maxMemory();
 
-			LOGGER.info("Running with max memory usage " + maxMemory / 1048576 + " MB");
+			LOGGER.info("Running with max memory usage {} MB", (maxMemory / 1048576));
 			LOGGER.info("Mono thread mode");
 			String line;
 			
 			progressBar = new SystemOutProgressBar(lineNumber, System.currentTimeMillis());
 			
-			List<String> lines = new ArrayList<String>();
+			List<String> lines = new ArrayList<>();
 			int count = 0;
 			while ((line = reader.readLine()) != null) {
 				if( StringUtils.isBlank(line) ) {
@@ -120,15 +113,6 @@ public class FileCrypter {
 			}
 			
 			writeLines(writer, lines);
-			
-			reader.close();
-			reader = null;
-			fileReader.close();
-			fileReader = null;
-			writer.close();
-			writer = null;
-			out.close();
-			out = null;
 		} 
 		finally {
 			saveCacheStatus();
@@ -137,11 +121,12 @@ public class FileCrypter {
 	}
 
 	private int getLineNumber(File input) throws IOException {
-		LineNumberReader lnr = new LineNumberReader(new FileReader(input));
-		lnr.skip(Long.MAX_VALUE);
-		int result = lnr.getLineNumber();
-		lnr.close();
-		return result;
+		try (
+				LineNumberReader lnr = new LineNumberReader(new FileReader(input));
+				) {
+			lnr.skip(Long.MAX_VALUE);
+			return lnr.getLineNumber();
+		}
 	}
 
 	@SuppressWarnings("unused")

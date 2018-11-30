@@ -7,4 +7,11 @@
   </parent>
   <artifactId>commons-sequences</artifactId>
   <name>common-sequences</name>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.simonworks.projects</groupId>
+  		<artifactId>smart-sequences-api</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
