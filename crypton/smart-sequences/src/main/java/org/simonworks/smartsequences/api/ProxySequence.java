@@ -2,6 +2,8 @@ package org.simonworks.smartsequences.api;
 
 import java.math.BigInteger;
 
+import org.apache.commons.lang3.StringUtils;
+
 public abstract class ProxySequence implements Sequence {
 	
 	public static final int MIN_VALUE = 0;
@@ -82,22 +84,20 @@ public abstract class ProxySequence implements Sequence {
 	public void increment(long amount) {
 		if( this.getCharacterSet().length() >= amount ) {
 			/**
-			 * Se questa sequence gestisce piu' valori di amount
-			 * avanzo direttamente fino a quel valore
+			 * If the number of values handled by this sequence is higher than amount, directly incrementing to that value
 			 */
 			for( int i = 0; i < amount; i++ ) {
 				increment();
 			}
 		} else {
 			/**
-			 * Faccio avanzare il mio delegato assumento che ogni suo avanzamento equivale ad un mio avanzamento di
-			 * tante posizioni quanti sono i valori che posso gestire.
+			 * Incrementing delegate assuming that each delegate's increment is equal to a full increment cycle of this sequence
 			 */
 			int delegateAmount = (int) ( amount / this.getCharacterSet().length() );
 			delegate.increment( delegateAmount );
 			
 			/**
-			 * Avanzo dell'eventuale resto
+			 * handling rest
 			 */
 			long myAmount = amount % this.getCharacterSet().length();
 			increment( myAmount );
@@ -111,15 +111,27 @@ public abstract class ProxySequence implements Sequence {
 	
 	@Override
 	public void synchWithValue(String value) {
-		String newValue = String.valueOf( value.charAt( value.length() - 1 ) );
-		String actual = actual();
-		int diff = newValue.compareTo(actual);
-		increment( diff );	
-		delegate.synchWithValue( value.substring(0, value.length() - 1) );
+		if( StringUtils.isNotEmpty(value) ) {
+			String newValue = String.valueOf( value.charAt( value.length() - 1 ) );
+			String actual = actual();
+			int diff = newValue.compareTo(actual);
+			increment( diff );	
+			delegate.synchWithValue( value.substring(0, value.length() - 1) );
+		}
 	}
 	
 	Sequence getDelegate() {
 		return delegate;
+	}
+	
+	public void reset() {
+		this.currentIndex = 0;
+		this.delegate.reset();
+	}
+	
+	@Override
+	public boolean shouldReset() {
+		return this.currentIndex == this.getCharacterSet().length();
 	}
 	
 	private interface Incrementer {
@@ -135,7 +147,7 @@ public abstract class ProxySequence implements Sequence {
 				ProxySequence.this.currentIndex++;	
 			}
 			
-			if(ProxySequence.this.currentIndex == ProxySequence.this.getCharacterSet().length()) {
+			if( shouldReset() ) {
 				synchronized(mutex) {
 					ProxySequence.this.currentIndex = 0;
 				}
@@ -157,7 +169,7 @@ public abstract class ProxySequence implements Sequence {
 		public void doIncrement() {
 			ProxySequence.this.currentIndex++;	
 			
-			if(ProxySequence.this.currentIndex == ProxySequence.this.getCharacterSet().length()) {
+			if( shouldReset() ) {
 				ProxySequence.this.currentIndex = 0;
 				delegate.increment();
 			}

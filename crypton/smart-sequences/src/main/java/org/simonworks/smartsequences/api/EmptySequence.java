@@ -69,4 +69,16 @@ class EmptySequence implements Sequence {
 		return StringUtils.EMPTY;
 	}
 	
+	@Override
+	public void reset() {
+		/**
+		 * Do nothing
+		 */
+	}
+	
+	@Override
+	public boolean shouldReset() {
+		return true;
+	}
+	
 }

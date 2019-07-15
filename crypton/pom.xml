@@ -41,7 +41,8 @@
 	<properties>
 		<commons.lang3.version>3.8.1</commons.lang3.version>
 		<commons.cli.version>1.4</commons.cli.version>
-		<slf4j.api.version>1.7.25</slf4j.api.version>
+		<slf4j.api.version>1.7.26</slf4j.api.version>
+		<logback.version>1.2.3</logback.version>
 		<mongo.java.driver.version>3.9.1</mongo.java.driver.version>
 
 		<crypton.project.version>0.0.1-SNAPSHOT</crypton.project.version>
@@ -92,6 +93,12 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.api.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
 		</dependency>
 	</dependencies>
 

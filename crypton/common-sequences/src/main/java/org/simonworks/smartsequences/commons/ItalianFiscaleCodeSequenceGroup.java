@@ -4,12 +4,12 @@ import org.simonworks.smartsequences.api.CharsSequence;
 import org.simonworks.smartsequences.api.NumbersSequence;
 import org.simonworks.smartsequences.api.Sequence;
 import org.simonworks.smartsequences.api.SequenceGroup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public final class CodiceFiscaleSequenceGroup implements SequenceGroup {
+public final class ItalianFiscaleCodeSequenceGroup implements SequenceGroup {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(CodiceFiscaleSequenceGroup.class);
+	/**
+	 * private static final Logger LOGGER = LoggerFactory.getLogger(CodiceFiscaleSequenceGroup.class);
+	 */
 	
 	private Sequence engine;
 	private static final int REFERENCED_VALUE_LENGTH = 16;
@@ -19,7 +19,7 @@ public final class CodiceFiscaleSequenceGroup implements SequenceGroup {
 		return REFERENCED_VALUE_LENGTH;
 	}
 
-	public CodiceFiscaleSequenceGroup() {		
+	public ItalianFiscaleCodeSequenceGroup() {		
 		super();
 		Sequence a = new CharsSequence();
 		Sequence b = new CharsSequence(		a	);
@@ -45,12 +45,8 @@ public final class CodiceFiscaleSequenceGroup implements SequenceGroup {
 	}
 	
 	public static void main(String[] args) {
-		String last =  "BTTFNC77E03H223R";
-		
-		SequenceGroup ps = new CodiceFiscaleSequenceGroup();
-		ps.getEngine().synchWithValue(last);
-		LOGGER.info( ps.next() );
-		LOGGER.info( ps.next() );
+		ItalianFiscaleCodeSequenceGroup seq = new ItalianFiscaleCodeSequenceGroup();
+		System.out.println( seq.next() );
 	}
 
 }

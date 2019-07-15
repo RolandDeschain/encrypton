@@ -1,9 +1,12 @@
 package org.simonworks.cryptengine.api;
 
+import java.util.ArrayList;
+import java.util.List;
 
 class NoopCrypterEngine implements CrypterEngine {
 	
 	private static final NoopCrypterEngine INSTANCE = new NoopCrypterEngine();
+	
 	private NoopCrypterEngine() {}
 	
 	public static CrypterEngine getInstance() {
@@ -26,6 +29,11 @@ class NoopCrypterEngine implements CrypterEngine {
 	@Override
 	public void loadSequencesStatus() {
 		// do nothing
+	}
+
+	@Override
+	public List<String> getSequencesNames() {
+		return new ArrayList<>();
 	}
 
 }

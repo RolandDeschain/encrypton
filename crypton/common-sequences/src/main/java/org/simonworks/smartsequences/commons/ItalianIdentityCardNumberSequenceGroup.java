@@ -5,17 +5,17 @@ import org.simonworks.smartsequences.api.NumbersSequence;
 import org.simonworks.smartsequences.api.Sequence;
 import org.simonworks.smartsequences.api.SequenceGroup;
 
-public class PatenteNumberSequenceGroup implements SequenceGroup {
+public class ItalianIdentityCardNumberSequenceGroup implements SequenceGroup {
 	
 	private Sequence engine;
-	private static final int REFERENCED_VALUE_LENGTH = 10;
+	private static final int REFERENCED_VALUE_LENGTH = 9;
 
 	@Override
 	public int getReferencedValueLength() {
 		return REFERENCED_VALUE_LENGTH;
 	}
 
-	public PatenteNumberSequenceGroup() {
+	public ItalianIdentityCardNumberSequenceGroup() {
 		super();
 		Sequence a = new CharsSequence();
 		Sequence b = new CharsSequence( a );
@@ -25,13 +25,12 @@ public class PatenteNumberSequenceGroup implements SequenceGroup {
 		Sequence f = new NumbersSequence( e );
 		Sequence g = new NumbersSequence( f );
 		Sequence h = new NumbersSequence( g );
-		Sequence i = new NumbersSequence( h );
-		engine = new NumbersSequence( i );
+		engine = new NumbersSequence( h );
 	}
-
+	
 	@Override
 	public Sequence getEngine() {
 		return engine;
 	}
-
+	
 }

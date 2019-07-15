@@ -65,7 +65,7 @@ public abstract class AbstractCrypterEngine implements CrypterEngine {
 	protected void setNewValue(SequenceGroup sequence, Replacing replacing) {
 		synchronized ( mutex ) {
 			String recovered = this.recover(replacing);
-			if (recovered != null) {
+			if ( StringUtils.isNotBlank(recovered) ) {
 				replacing.setNewValue(recovered);
 			} else {
 				replacing.setNewValue(sequence.next());

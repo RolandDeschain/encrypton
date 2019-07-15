@@ -1,7 +1,9 @@
 package org.simonworks.cryptengine.api;
 
+import java.util.List;
+
 /**
- * Questo oggetto si occupa di criptare una String in un formato non reversibile
+ * Crypting interface for Strings
  * 
  * @author simone.stranieri
  *
@@ -9,26 +11,30 @@ package org.simonworks.cryptengine.api;
 public interface CrypterEngine {
 	
 	/**
-	 * Cripta la String in input e la restituisce in output
+	 * Crypts input String and return the crypted one
 	 * 
-	 * @param line La String da criptare
-	 * @return Il formato criptato della String in input
+	 * @param line The String to crypt
+	 * @return Crypted String
 	 */
 	String crypt(String line);
 	
 	/**
-	 * @return Una descrizione del tipo di algoritmo che sara' applicato
+	 * @return A short description about this crypter logics
 	 */
 	String getDescription();
 	
 	/**
-	 * Salva lo stato di avanzamento delle sequenze usando la cache
+	 * Saves actual status of internal sequences used for values' substitution.
 	 */
 	void storeSequencesStatus();
 	
 	/**
-	 * Recupera lo stato di avanzamento delle sequenze usando la cache
+	 * Recovers status of internal sequences used for values'  substitution.
 	 */
 	void loadSequencesStatus();
 	
+	/**
+	 * Each CrypterEngine implementation must indicate which sequenced should be stored/recovered during stop/restart phases
+	 */
+	List<String> getSequencesNames();
 }

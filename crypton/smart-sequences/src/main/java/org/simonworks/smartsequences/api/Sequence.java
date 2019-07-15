@@ -65,4 +65,15 @@ public interface Sequence {
 	 */
 	BigInteger countPermutations();
 	
+	/**
+	 * Resetta la sequenza al suo primo valore.
+	 */
+	void reset();
+	
+	/**
+	 * Indica se la sequenza deve essere resettata (riparte dal primo valore ).
+	 * @return
+	 */
+	boolean shouldReset();
+	
 }

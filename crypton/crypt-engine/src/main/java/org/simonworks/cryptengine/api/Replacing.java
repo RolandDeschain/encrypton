@@ -70,13 +70,15 @@ public class Replacing {
 		if (fieldId == null) {
 			if (other.fieldId != null)
 				return false;
-		} else if (!fieldId.equals(other.fieldId))
+		} else if (!fieldId.equals(other.fieldId)) {
 			return false;
+		}
 		if (oldValue == null) {
 			if (other.oldValue != null)
 				return false;
-		} else if (!oldValue.equals(other.oldValue))
+		} else if (!oldValue.equals(other.oldValue)) {
 			return false;
+		}
 		return true;
 	}
 

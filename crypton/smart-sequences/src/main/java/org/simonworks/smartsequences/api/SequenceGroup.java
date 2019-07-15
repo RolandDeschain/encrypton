@@ -12,10 +12,8 @@ public interface SequenceGroup {
 			return result.toString();
 	}
 	
+	default void reset() {
+		this.getEngine().reset();
+	}
 	
-	
-
-	
-	
-
 }

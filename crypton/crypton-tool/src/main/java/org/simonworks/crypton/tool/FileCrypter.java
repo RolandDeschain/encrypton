@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 
- * Avvia il tool
+ * Starts the tool
  *
  */
 public class FileCrypter {
@@ -38,16 +38,16 @@ public class FileCrypter {
 	private int commitInterval;
 
 	/**
-	 * Costruisce il crypter
+	 * Builds the crypter
 	 * 
 	 * @param crypterEngine
-	 *            l'engine da utilizzare
+	 *            engine name to be used
 	 * @param inputFile
-	 *            il nome del file da leggere
+	 *            filename to be crypted
 	 * @param outputFile
-	 *            il nome del file su cui scrivere
+	 *            output filename that will contains crypted values
 	 * @param useCache
-	 *            se deve essre usata la cache interna
+	 *            use interna cache or not
 	 */
 	public FileCrypter(CrypterEngine crypterEngine, File inputFile, File outputFile, int commitInterval) {
 		this.crypterEngine = crypterEngine;

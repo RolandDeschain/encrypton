@@ -11,7 +11,7 @@ class NoopCryptCache implements CryptCache {
 	}
 	
 	public String recover(String container, String source) {
-		return source;
+		return "";
 	}
 	
 	@Override
