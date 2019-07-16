@@ -1,2 +1,2 @@
 # crypton
-A extensible crypt tool for different type of sources
+A extensible encryption tool for different type of sources
