@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.simonworks.projects</groupId>
-	<artifactId>crypton</artifactId>
+	<artifactId>encrypton</artifactId>
 	<version>${crypton.project.version}</version>
 	<packaging>pom</packaging>
 	<name>crypton</name>
@@ -105,11 +105,11 @@
 	<modules>
 		<module>smart-sequences</module>
 		<module>cache-works</module>
-		<module>crypt-algorithms</module>
 		<module>common-sequences</module>
 		<module>common-caches</module>
 		<module>common-algorithms</module>
-		<module>crypt-engine</module>
-		<module>crypton-tool</module>
+		<module>encrypt-algorithms</module>
+		<module>encrypt-engine</module>
+		<module>encrypt-tool</module>
 	</modules>
 </project>

@@ -2,10 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.simonworks.projects</groupId>
-    <artifactId>crypton</artifactId>
+    <artifactId>encrypton</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>cacheworks</artifactId>
+  <artifactId>cache-works</artifactId>
   <name>cache-works</name>
   <description>A full set of utilities for caching things</description>
 </project>

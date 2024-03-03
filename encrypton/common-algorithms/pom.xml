@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.simonworks.projects</groupId>
-    <artifactId>crypton</artifactId>
+    <artifactId>encrypton</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>common-algorithms</artifactId>
@@ -10,7 +10,7 @@
   <dependencies>
   	<dependency>
   		<groupId>org.simonworks.projects</groupId>
-  		<artifactId>crypt-algorithms</artifactId>
+  		<artifactId>encrypt-algorithms</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>

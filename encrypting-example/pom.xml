@@ -4,28 +4,25 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.simonworks.projects</groupId>
-		<artifactId>crypton</artifactId>
+		<artifactId>encrypton</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>crypt-engine</artifactId>
-	<name>crypt-engine</name>
+	<artifactId>encrypting-example</artifactId>
 	<dependencies>
 		<dependency>
 			<groupId>org.simonworks.projects</groupId>
-			<artifactId>cacheworks</artifactId>
+			<artifactId>encrypt-engine</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.simonworks.projects</groupId>
-			<artifactId>smart-sequences-api</artifactId>
+			<artifactId>commons-sequences</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
+			<groupId>org.simonworks.projects</groupId>
+			<artifactId>encrypt-tool</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

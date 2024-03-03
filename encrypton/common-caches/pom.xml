@@ -4,17 +4,28 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.simonworks.projects</groupId>
-		<artifactId>crypton</artifactId>
+		<artifactId>encrypton</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>smart-sequences-api</artifactId>
-	<name>smart-sequences</name>
-
+	<artifactId>common-caches</artifactId>
+	<name>common-caches</name>
 	<dependencies>
+		<dependency>
+			<groupId>org.simonworks.projects</groupId>
+			<artifactId>cache-works</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
 		</dependency>
 	</dependencies>
 </project>
