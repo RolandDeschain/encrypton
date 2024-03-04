@@ -4,10 +4,21 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.simonworks.projects</groupId>
 	<artifactId>encrypton</artifactId>
-	<version>${encrypton.project.version}</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>encrypton</name>
 	<description>A framework for a smart encrypting ;-)</description>
+
+
+
+	<properties>
+		<commons.lang3.version>3.8.1</commons.lang3.version>
+		<commons.cli.version>1.4</commons.cli.version>
+		<slf4j.api.version>1.7.26</slf4j.api.version>
+		<logback.version>[1.2.13,)</logback.version>
+		<mongo.java.driver.version>3.9.1</mongo.java.driver.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<build>
 		<pluginManagement>
@@ -37,16 +48,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<properties>
-		<commons.lang3.version>3.8.1</commons.lang3.version>
-		<commons.cli.version>1.4</commons.cli.version>
-		<slf4j.api.version>1.7.26</slf4j.api.version>
-		<logback.version>[1.2.13,)</logback.version>
-		<mongo.java.driver.version>3.9.1</mongo.java.driver.version>
-
-		<encrypton.project.version>0.0.1-SNAPSHOT</encrypton.project.version>
-	</properties>
 
 	<dependencyManagement>
 		<dependencies>
@@ -80,13 +81,14 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
 		<dependency>
 			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>2.0.2-beta</version>
+			<artifactId>mockito-core</artifactId>
+			<version>5.11.0</version>
 			<scope>test</scope>
 		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 		<dependency>
