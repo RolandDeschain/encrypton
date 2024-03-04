@@ -12,17 +12,17 @@
 		<dependency>
 			<groupId>org.simonworks.projects</groupId>
 			<artifactId>encrypt-engine</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.simonworks.projects</groupId>
-			<artifactId>commons-sequences</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>common-sequences</artifactId>
+			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.simonworks.projects</groupId>
 			<artifactId>encrypt-tool</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>
 </project>

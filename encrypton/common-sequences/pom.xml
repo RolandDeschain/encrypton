@@ -3,15 +3,15 @@
   <parent>
     <groupId>org.simonworks.projects</groupId>
     <artifactId>encrypton</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+      <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>commons-sequences</artifactId>
+  <artifactId>common-sequences</artifactId>
   <name>common-sequences</name>
   <dependencies>
   	<dependency>
   		<groupId>org.simonworks.projects</groupId>
-  		<artifactId>smart-sequences-api</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<artifactId>smart-sequences</artifactId>
+  		<version>${project.parent.version}</version>
   	</dependency>
   </dependencies>
 </project>

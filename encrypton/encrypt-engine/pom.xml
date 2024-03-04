@@ -8,18 +8,18 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>encrypt-engine</artifactId>
-	<name>crypt-engine</name>
+	<name>encrypt-engine</name>
 	<dependencies>
 		<dependency>
 			<groupId>org.simonworks.projects</groupId>
 			<artifactId>cache-works</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.simonworks.projects</groupId>
-			<artifactId>smart-sequences-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>smart-sequences</artifactId>
+			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->

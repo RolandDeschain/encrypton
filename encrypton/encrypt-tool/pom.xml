@@ -6,9 +6,10 @@
 		<groupId>org.simonworks.projects</groupId>
 		<artifactId>encrypton</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>encrypt-tool</artifactId>
-	<name>crypton-tool</name>
+	<name>encrypton-tool</name>
 
 	<build>
 		<plugins>
@@ -23,7 +24,7 @@
 					</binFileExtensions>
 					<programs>
 						<program>
-							<mainClass>it.oasi.crypter.ToolLauncher</mainClass>
+							<mainClass>org.simonworks.encrypton.ToolLauncher</mainClass>
 							<name>crypt-tool</name>
 						</program>
 					</programs>
@@ -60,7 +61,7 @@
 		<dependency>
 			<groupId>org.simonworks.projects</groupId>
 			<artifactId>encrypt-engine</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->

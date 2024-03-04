@@ -7,7 +7,7 @@
 		<artifactId>encrypton</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>smart-sequences-api</artifactId>
+	<artifactId>smart-sequences</artifactId>
 	<name>smart-sequences</name>
 
 	<dependencies>
